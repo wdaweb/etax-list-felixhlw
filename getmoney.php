@@ -110,8 +110,8 @@
 
     <h1>統一發票中獎號碼單</h1>
         <form action="award.php" method="get">
-            <input type="hidden" name="year" value="$year">
-            <input type="hidden" name="period" value="$period">
+            <input type="hidden" name="year" value="<?=$year;?>">
+            <input type="hidden" name="period" value="<?=$period;?>">
             <input type="submit" value="對獎">
         </form>
     

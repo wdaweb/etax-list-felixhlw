@@ -34,6 +34,44 @@ if (!empty($_GET)) {
         $period-=2;
     }
 }
+$sql1="select year,period,months,awa1,awa2,awa3,awa4 from award, period where year = '$year' && period='$period' && award.period=period.id && period.id='$period'";
+$award=$pdo->query($sql1)->fetch();
+
+$sql2="select year,period,months,code,number,expend from invoice, period where year = '$year' && invoice.period=period.id && period.id='$period'";
+$invoice=$pdo->query($sql2)->fetchAll();
+/* print_r($invoice); */
+$sql3="select sum(`expend`) as cost from invoice where period = '$period'";
+$cost=$pdo->query($sql3)->fetch();
+
+echo "總花費:".$cost['cost'];
+echo "<br>";
+
+$total=count($invoice);
+
+/* if (!empty($invoice)) {
+    foreach ($invoice as $key ) {
+        echo "第".$period."期 ".$key['2']."月份 發票號碼: ".$key[3]."-".$key[4]." 發票金額: ".$key[5]."元"; 
+        echo "<br>" ;
+    }  
+}else{
+    echo "no data";
+} */
+
+foreach ($invoice as $key => $num) {
+    if ($key[3]==34567890) {
+        echo "發票號碼: ".$key['awa1']."中特獎 -> 1千萬元";
+        echo "<br>";                
+    }elseif(substr($key['awa2'], -7,7)=="4567890"){
+        echo "發票號碼: ".$key['awa1']."中頭獎 -> 1千萬元";
+        echo "<br>";
+    }
+}
+
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,10 +85,12 @@ if (!empty($_GET)) {
 <body>
 <h1>開始對獎</h1>
 <div class="award-info">
-年度：2019<br>
-期別：4<br>
+年度：<?=$year;?><br>
+期別：<?=$period?><br>
 合計有發票：
-6707張<br></div>
+<?=$total;?>張<br>
+消費金額共計: <?=$cost['cost'];?> 元
+</div>
 <div class="award-result">
 
 
