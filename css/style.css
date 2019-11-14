@@ -1,0 +1,162 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    font-size:16px;
+    font-family: "微軟正黑體",Arial, Helvetica, sans-serif;
+    list-style-type: none;
+}
+body{
+    padding:20px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+a{
+    text-decoration: none;
+}
+.navbar,.invform,.award-form{
+    min-width:500px;
+    padding:10px;
+    border:1px solid #999;
+    box-shadow: 0 0 5px #ccc;
+}
+.invform label{
+    display:block;
+    margin:5px auto;
+    width:350px;
+}
+.invform label:nth-of-type(4){
+    text-align: center;
+}
+#code{
+    width:40px;
+    padding:3px 2px;
+    text-transform: uppercase;
+}
+.invform #number,
+.invform #expend,
+.invform #year,
+.invform #code,
+.infvform #month{
+    width:200px;
+    padding:3px 2px;
+    margin:2px 0;
+    font-size: 24px;
+}
+.invform #code{
+    width:50px;
+}
+
+input[type="submit"]{
+    box-sizing:content-box;
+    padding:5px 20px;
+    font-size:24px;
+}
+h1{
+    margin:10px auto;
+    text-align: center;
+    font-size:30px;
+    padding:10px;
+
+}
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    text-align: center;
+}
+.navbar li{
+    width:20%;
+    padding:5px;
+}
+.navbar li:hover{
+    background:lightskyblue;
+    box-shadow:1px 1px 3px #aaa;
+}
+.award-form table{
+    border-spacing: 0;
+}
+.award-form table td{
+    padding:5px;
+    border-bottom:1px solid #ccc;
+    min-height:30px;
+}
+.award-form table td:nth-of-type(1){
+    width:80px;
+}
+.award-form table td:nth-of-type(2){
+    width:350px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.award-form table td:nth-of-type(2) li{
+    font-size:24px;
+    color:red;
+    padding:5px 0;
+}
+.award-form table td:nth-of-type(3){
+    width:80px;
+}
+.award-form table tr:nth-last-of-type(1) td{
+    text-align: center;
+    border-bottom:unset;
+}
+.award-form table input[type='number']{
+    padding:5px;
+    font-size:24px;
+    display:inline-block;
+    margin:2px;
+}
+.award-form table select,
+.invform  select{
+    padding:5px;
+    font-size:24px;
+    margin:2px;
+}
+.invoice-list{
+    width:400px;
+    height:600px;
+    overflow: auto;
+    box-shadow: 0 0 5px #ccc;
+}
+.invoice-list table{
+    width:70%;
+    padding:10px;
+    border-spacing: 0;
+    margin:auto;
+}
+.invoice-list td{
+    padding:10px 0;
+    text-align: center;
+    border-bottom:1px solid #ccc;
+}
+
+.invoice-list tr:nth-child(n+2) td:nth-child(2){
+    text-align: right;
+}
+.award-info,.award-result{
+    width:400px;
+    margin:auto;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px #ccc;
+}
+.award-info{
+    padding:10px 40px;
+    
+}
+.award-result{
+    padding:10px;
+}
+.award-result h2{
+    font-size:24px;
+}
+.award-result h3,
+.award-result h2{
+    margin:10px 0;
+}
+.award-result li{
+    margin:5px 0;
+}
