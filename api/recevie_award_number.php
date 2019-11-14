@@ -17,10 +17,10 @@ if($pdo->exec($sql)){
     echo "<br>";
     echo "登陸獎號成功";
     echo "<br>";
-    echo "<a href='../reg_awad.php'>繼續錄獎號</a>";
+    echo "<a href='../reg_award.php'>繼續錄獎號</a>";
 }else{
     echo "輸入有誤，請重新輸入!";
-    echo "<a href='../reg_awad.php'>重新登錄獎號</a>";
+    echo "<a href='../reg_award.php'>重新登錄獎號</a>";
 
 }
 

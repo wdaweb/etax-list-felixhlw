@@ -42,24 +42,47 @@
             $period=6;
             }
             if (date('d')<25) {
-                $period-=1;
+                $period-=2;
             }
         }
-        echo $year.",".$period;
-        echo "<br><br>";
+        echo $year."年度,第".$period."期";
+        echo "<br>";
 
-        $sql1="select * from award where year = '$year' && period='$period'";
-        $awd=$pdo->query($sql1)->fetchAll();
-
-        print_r($awd);
-        echo "<br><br>";
-
+        $sql1="select year,period,months,awa1,awa2,awa3,awa4 from award, period where year = '$year' && period='$period' && award.period=period.id && period.id='$period'";
+        $award=$pdo->query($sql1)->fetch();
+        
         $sql2="select year,period,months,code,number,expend from invoice, period where year = '$year' && invoice.period=period.id && period.id='$period'";
         $invoice=$pdo->query($sql2)->fetchAll();
+        
+        echo "<br>獎號<br>";
+        print_r($award);
+        echo "<br>";
+        $months=$invoice[0][2];
+        $awa1=$award['awa1'];
+        $awa2=$award['awa2'];
+        $awa3=explode("," ,$award['awa3']);
+        $awa4=explode("," ,$award['awa4']);
+        echo "<br>";
+        echo "這是頭獎的獎號內容: <br>";
+        print_r($awa3);
+        echo "<br>";
 
+
+        echo "<br>發票號碼<br>";
         print_r($invoice);
         echo "<br><br>";
-
+        $awa=[$awa1,$awa2,$awa3,$awa4];
+        $num="";
+        function nonum($num){
+            global $award;
+            global $awa;
+            if (empty($award) ) {
+                echo "每月25日13:30開獎";
+            }else{   
+                echo $awa[$num];
+            }
+          }
+          /* && date('d')<25 && date('h')< 13 && date('m')<30  */
     ?>
     <div class="navbar">
         <li>
@@ -84,45 +107,57 @@
             <a href="index.php">回首頁</a>
         </li>
     </div>
+
     <h1>統一發票中獎號碼單</h1>
-        <form action="getmoney.php" method="get">
+        <form action="award.php" method="get">
             <input type="hidden" name="year" value="$year">
-            <input type="hidden" name="period" value="4">
+            <input type="hidden" name="period" value="$period">
             <input type="submit" value="對獎">
         </form>
     
+
     <div class="award-form">
             <table>
+            
                 <tr>
                     <td colspan="3">
-                        年度：2019                    </td>
+                        年度：<?=$year;?> </td>
                 </tr>
                 <tr>
                     <td>月份</td>
                     <td>
-                        7,8月                    </td>
+                        <?=$invoice[0][2];?>月  </td>
                     <td>獎金</td>
                 </tr>
                 <tr>
                     <td>特別獎</td>
                     <td>
-                        <li>45698621</li>
+   
+                     <li><?=nonum(0);?></li>
+        
                     </td>
                     <td>1000萬元</td>
                 </tr>
                 <tr>
                     <td>特獎</td>
                     <td>
-                        <li>19614436</li>
-                    </td>
+        
+                      <li><?=nonum(1);?></li>
+                            </td>
                     <td>200萬元</td>
                 </tr>
                 <tr>
                     <td>頭獎</td>
                     <td>
-                        <li>96182420</li>
-                        <li>47464012</li>
-                        <li>62781818</li>
+                     <?php
+                        if (empty($award) || $awa3==0) {
+                            echo "<li>每月25日13:30開獎</li>";       
+                        }else{ 
+                            for ($i=0; $i < count($awa3); $i++) { 
+                                echo "<li>".$awa3[$i]."</li>";
+                            }
+                        }
+                     ?> 
                     </td>
                     <td>20萬元</td>
                 </tr>
@@ -154,9 +189,15 @@
                 <tr>
                     <td>增開六獎</td>
                     <td>
-                        <li>928</li>
-                        <li>899</li>
-                        <li></li>
+                    <?php
+                        if (empty($award) || $awa3==0) {
+                            echo "<li>每月25日13:30開獎</li>";       
+                        }else{ 
+                            for ($i=0; $i < count($awa4); $i++) { 
+                                echo "<li>".$awa4[$i]."</li>";
+                            }
+                        }
+                     ?>                         
                     </td>
                     <td>2百元</td>
                 </tr>
