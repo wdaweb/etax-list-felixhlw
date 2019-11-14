@@ -35,7 +35,8 @@ if (!empty($_GET)) {
     }
 }
 $sql1="select year,period,months,awa1,awa2,awa3,awa4 from award, period where year = '$year' && period='$period' && award.period=period.id && period.id='$period'";
-$award=$pdo->query($sql1)->fetch();
+$award=$pdo->query($sql1)->fetchAll();
+print_r($award);
 
 $sql2="select year,period,months,code,number,expend from invoice, period where year = '$year' && invoice.period=period.id && period.id='$period'";
 $invoice=$pdo->query($sql2)->fetchAll();
@@ -56,17 +57,52 @@ $total=count($invoice);
 }else{
     echo "no data";
 } */
+/* $prize=[
+        "1千萬元"=>10000000,
+        "2百萬元"=>2000000,
+        "20萬元"=>200000,
+        "4萬元"=>40000,
+        "1萬元"=>10000,
+        "4千元"=>4000,
+        "1千元"=>1000,
+        "200元"=>200
+    ]; */
 
-foreach ($invoice as $key => $num) {
-    if ($key[3]==34567890) {
-        echo "發票號碼: ".$key['awa1']."中特獎 -> 1千萬元";
-        echo "<br>";                
-    }elseif(substr($key['awa2'], -7,7)=="4567890"){
-        echo "發票號碼: ".$key['awa1']."中頭獎 -> 1千萬元";
+
+echo "<br>";       
+/* echo $prize['1千萬元']; */
+echo "<br>";
+$money=[];
+$tot=0;
+foreach ($invoice as $key) {
+    echo $key[4];
+    if ($key[4]==$award[0]['awa1']) {
+        echo "發票號碼: ".$key[4]." 中特獎 -> 1千萬元";
+        echo "<br>";  
+        array_push($money,10000000);  
+
+    }elseif($key[4]==$award[0]['awa2']) {
+            echo "發票號碼: ".$key[4]." 中特獎 -> 2百萬元";
+            echo "<br>";  
+            array_push($money,2000000); 
+
+    }elseif(substr($key[4], -7,7)==$award[0]['awa3']){
+        echo "發票號碼: ".$key[4]."中頭獎 -> 200萬元";
         echo "<br>";
-    }
-}
+        array_push($money,2000000);  
 
+    }elseif(substr($key[4], -7,7)==$award[0]['awa4']){
+        echo "發票號碼: ".$key[4]."中頭獎 -> 200元";
+        echo "<br>";
+        array_push($money,200);  
+    }
+
+
+}
+$tot=array_sum($money);
+echo "<br>獲獎陣列紀錄: ";
+print_r($money);
+echo "<br>總共獲得:".$tot."元<br>";
 
 
 
@@ -97,7 +133,7 @@ foreach ($invoice as $key => $num) {
 <h2>對獎結果</h2>
 <ul>
     <li>發票號碼 38938818=>2百元</li><li>發票號碼 63541899=>2百元</li><li>發票號碼 46780818=>2百元</li><li>發票號碼 39176012=>2百元</li><li>發票號碼 71631899=>2百元</li><li>發票號碼 41995012=>2百元</li><li>發票號碼 58673899=>2百元</li><li>發票號碼 39078928=>2百元</li><li>發票號碼 42970012=>2百元</li><li>發票號碼 64757899=>2百元</li><li>發票號碼 48107012=>2百元</li><li>發票號碼 35614420=>2百元</li><li>發票號碼 59622899=>2百元</li><li>發票號碼 47210899=>2百元</li><li>發票號碼 56667899=>2百元</li><li>發票號碼 40905818=>2百元</li><li>發票號碼 37735420=>2百元</li><li>發票號碼 47589818=>2百元</li><li>發票號碼 72783818=>2百元</li><li>發票號碼 68368818=>2百元</li><li>發票號碼 60089420=>2百元</li><li>發票號碼 47805928=>2百元</li><li>發票號碼 32456012=>2百元</li><li>發票號碼 71333928=>2百元</li><li>發票號碼 57472012=>2百元</li><li>發票號碼 33010420=>2百元</li><li>發票號碼 69578420=>2百元</li><h3>恭喜你合計中了5400元</h3></ul>
-<a href="index.html" style="display:block;width:300px;text-align:center;margin:auto;">回首頁</a>  
+<a href="index.php" style="display:block;width:300px;text-align:center;margin:auto;">回首頁</a>  
 </div>  
 </body>
 </html>

@@ -13,7 +13,8 @@
         include "./api/base.php";
         echo "<br><br>";
         $month=date('m');
-        
+      
+
         if (!empty($_GET)) {
         
             $period=$_GET['period'];
@@ -45,6 +46,16 @@
                 $period-=2;
             }
         }
+
+        $m=["0,0","1,2","3,4","5,6","7,8","9,10","11,12"];
+        $s="";
+        if ($period==6) {
+            $s="1";
+        }else{
+            $s=intval($m[$period])+2;
+        }
+        echo $s."<br>";
+
         echo $year."年度,第".$period."期";
         echo "<br>";
 
@@ -76,8 +87,12 @@
         function nonum($num){
             global $award;
             global $awa;
+            global $period;
+            global $m;
+            global $s;
+            
             if (empty($award) ) {
-                echo "每月25日13:30開獎";
+                echo $s."月25日13:30開獎";
             }else{   
                 echo $awa[$num];
             }
@@ -126,7 +141,7 @@
                 <tr>
                     <td>月份</td>
                     <td>
-                        <?=$invoice[0][2];?>月  </td>
+                        <?=$m[$period];?>月  </td>
                     <td>獎金</td>
                 </tr>
                 <tr>
@@ -151,7 +166,8 @@
                     <td>
                      <?php
                         if (empty($award) || $awa3==0) {
-                            echo "<li>每月25日13:30開獎</li>";       
+                            echo "<li>". $s."月25日13:30開獎"."</li>";
+                              
                         }else{ 
                             for ($i=0; $i < count($awa3); $i++) { 
                                 echo "<li>".$awa3[$i]."</li>";
@@ -191,7 +207,7 @@
                     <td>
                     <?php
                         if (empty($award) || $awa3==0) {
-                            echo "<li>每月25日13:30開獎</li>";       
+                            echo "<li>". substr($s,0,1)."月25日13:30開獎"."</li>";      
                         }else{ 
                             for ($i=0; $i < count($awa4); $i++) { 
                                 echo "<li>".$awa4[$i]."</li>";
