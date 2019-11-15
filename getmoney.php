@@ -124,7 +124,7 @@
     if (!empty($award))  {
         echo "<input type='submit' class='send' value='對獎'>";
     }else{
-        echo "<h2>無該其獎號</h2>";
+        echo "<h2>無該期獎號</h2>";
     }
 
 ?>            

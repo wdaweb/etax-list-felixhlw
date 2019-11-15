@@ -126,7 +126,10 @@ foreach ($invoice as $key) {
         if( substr($key[4],-3) == explodeawa4($i)){
             echo "<li>發票號碼: ".$key[4]." 中加開六獎 -> 200元<li>";
             array_push($money,200);    
+        }else{
+            echo "<li>目前沒有中獎記錄~</li>";
         }
+
     }
 
 }
