@@ -126,8 +126,6 @@ foreach ($invoice as $key) {
         if( substr($key[4],-3) == explodeawa4($i)){
             echo "<li>發票號碼: ".$key[4]." 中加開六獎 -> 200元<li>";
             array_push($money,200);    
-        }else{
-            echo "<li>目前沒有中獎記錄~</li>";
         }
 
     }
@@ -137,7 +135,11 @@ $tot=array_sum($money);
 /* echo "<br>獲獎陣列紀錄: <br>";
 print_r($money); */
 echo "<br>";
-echo "總共中了".count($money)."張發票";
+if (count($money)==0) {
+    echo "<li>目前沒有中獎記錄~</li>";
+}else{
+    echo "總共中了".count($money)."張發票";
+}
 echo "<br>";
 echo "<br>總共獲得:".$tot."元<br>";
 
