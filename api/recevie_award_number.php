@@ -15,12 +15,12 @@ print_r($sql);
 
 if($pdo->exec($sql)){
     echo "<br>";
-    echo "登陸獎號成功";
+    echo "<h1>登錄獎號成功</h1>";
     echo "<br>";
-    echo "<a href='../reg_award.php'>繼續錄獎號</a>";
+    echo "<a href='../reg_award.php'><div class='button'>繼續錄獎號</div></a>";
 }else{
-    echo "輸入有誤，請重新輸入!";
-    echo "<a href='../reg_award.php'>重新登錄獎號</a>";
+    echo "<h1>輸入有誤，請重新輸入!</h1>";
+    echo "<a href='../reg_award.php'><div class='button'>重新登錄獎號</div></a>";
 
 }
 

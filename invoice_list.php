@@ -11,10 +11,9 @@
 <body>
 <?php
 include "./api/base.php";
-/* $per="select year,period,months,code,number,expend from invoice, period where invoice.period=period.id";
-print_r($per); */
 
-echo "<br><br>";
+
+
 $month=date('m');
 
 if (!empty($_GET)) {
@@ -45,25 +44,22 @@ if (!empty($_GET)) {
     $period=6;
     }
 }
-echo $year.",".$period;
-echo "<br>";
+$sql2="select year,period,months,code,number,expend from invoice, period where year = '$year' && invoice.period=period.id && period.id='$period'";
+$invoice=$pdo->query($sql2)->fetchAll();
+
+$months=$invoice[0][2];
+/* echo $year.",".$period;
+echo "<br>"; */
 /* select year,period,months,code,number,expend from invoice, period where year = '$year' && invoice.period=period.id &&period.id='$period'; */
 
 $sql="select year,period,months,code,number,expend from invoice, period where year = '$year' && invoice.period=period.id && period.id='$period'";
 $invoice=$pdo->query($sql)->fetchAll();
+$sql3="select sum(`expend`) as cost from invoice where period = '$period'";
+$cost=$pdo->query($sql3)->fetch();
+
+/* echo "總花費:".$cost['cost'];
+echo "<br>"; */
 /* print_r($invoice); */
-echo "<br>";
-
-if (!empty($invoice)) {
-    foreach ($invoice as $key ) {
-        echo "第".$period."期 ".$key['2']."月份 發票號碼: ".$key[3]."-".$key[4]." 發票金額: ".$key[5]."元"; 
-        echo "<br>" ;
-    }  
-}else{
-    echo "no data";
-}
-
-    
 ?>
 
 <div class="navbar">
@@ -90,7 +86,7 @@ if (!empty($invoice)) {
         </li>
     </div>
 
-    <h1>11,12月份發票清單</h1>
+    <h1><?=$months;?>月份發票清單</h1>
     <div class="invoice-list">
     <table>
 
@@ -100,107 +96,28 @@ if (!empty($invoice)) {
         </tr>
 
 <?php
+if (!empty($invoice)) {
+    foreach ($invoice as $key ) {
+        echo "<tr>";
+        /* echo "<td>第".$period."期 ".$key['2']."月份 發票號碼: ".$key[3]."-".$key[4]." 發票金額: ".$key[5]."元</td>";  */
+        echo "<td>".$key[3]."-".$key[4]."</td> <td> ".$key[5]."元</td>"; 
+        echo "</tr>" ;
+    }  
+}else{
+    echo "no data";
+}
+
+
+
 
 
 ?>
-            <tr>
-        <td>CA-33587272</td>
-        <td>658元</td>
-        </tr>
 
-            <tr>
-        <td>CA-32033723</td>
-        <td>125元</td>
-        </tr>
 
-            <tr>
-        <td>AZ-77196369</td>
-        <td>965元</td>
-        </tr>
-
-            <tr>
-        <td>FH-44709788</td>
-        <td>166元</td>
-        </tr>
-
-            <tr>
-        <td>CA-55196168</td>
-        <td>897元</td>
-        </tr>
-
-            <tr>
-        <td>UV-35452486</td>
-        <td>316元</td>
-        </tr>
-
-            <tr>
-        <td>CA-76282561</td>
-        <td>742元</td>
-        </tr>
-
-            <tr>
-        <td>UV-58561327</td>
-        <td>917元</td>
-        </tr>
-
-            <tr>
-        <td>UV-75433453</td>
-        <td>942元</td>
-        </tr>
-
-            <tr>
-        <td>UG-48824397</td>
-        <td>168元</td>
-        </tr>
-
-            <tr>
-        <td>BR-64385298</td>
-        <td>873元</td>
-        </tr>
-
-            <tr>
-        <td>BR-73330609</td>
-        <td>291元</td>
-        </tr>
-
-            <tr>
-        <td>AZ-37103865</td>
-        <td>626元</td>
-        </tr>
-
-            <tr>
-        <td>UV-56670361</td>
-        <td>887元</td>
-        </tr>
-
-            <tr>
-        <td>AZ-56588131</td>
-        <td>194元</td>
-        </tr>
-
-            <tr>
-        <td>AZ-42587366</td>
-        <td>138元</td>
-        </tr>
-
-            <tr>
-        <td>BR-79524119</td>
-        <td>589元</td>
-        </tr>
-
-            <tr>
-        <td>AZ-60486306</td>
-        <td>259元</td>
-        </tr>
 
   
-  
-
-            
-
-        <tr>
-        <td>合計6676張發票</td>
-        <td>3517004元</td>
+        <td>合計<?=count($invoice);?>張發票</td>
+        <td><?=$cost['cost'];?>元</td>
     </tr>
     </table>
     </div>

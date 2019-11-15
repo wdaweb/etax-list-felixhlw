@@ -13,7 +13,7 @@
     <div class="navbar">
         <li><a href="invoice_list.php">發票清單</a></li>
         <li><a href="getmoney.php">對獎</a></li>
-        <li><a href="reg_awrd.php">輸入獎號</a></li>
+        <li><a href="reg_award.php">輸入獎號</a></li>
         <li><a href="index.php">回首頁</a></li>
     </div>
     <div class="invform">

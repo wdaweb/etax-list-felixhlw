@@ -120,7 +120,14 @@
         <form action="award.php" method="get">
             <input type="hidden" name="year" value="<?=$year;?>">
             <input type="hidden" name="period" value="<?=$period;?>">
-            <input type="submit" value="對獎">
+<?php            
+    if (!empty($award))  {
+        echo "<input type='submit' class='send' value='對獎'>";
+    }else{
+        echo "<h2>無該其獎號</h2>";
+    }
+
+?>            
         </form>
     
 

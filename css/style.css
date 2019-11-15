@@ -15,6 +15,7 @@ body{
 a{
     text-decoration: none;
 }
+
 .navbar,.invform,.award-form{
     min-width:500px;
     padding:10px;
@@ -60,6 +61,13 @@ h1{
     padding:10px;
 
 }
+h2{
+    margin:10px auto;
+    text-align: center;
+    font-size:20px;
+    padding:10px;
+
+}
 .navbar{
     display: flex;
     justify-content: space-between;
@@ -71,7 +79,7 @@ h1{
     padding:5px;
 }
 .navbar li:hover{
-    background:lightskyblue;
+    background:rgb(250, 219, 135);
     box-shadow:1px 1px 3px #aaa;
 }
 .award-form table{
@@ -117,7 +125,7 @@ h1{
     margin:2px;
 }
 .invoice-list{
-    width:400px;
+    width:450px;
     height:600px;
     overflow: auto;
     box-shadow: 0 0 5px #ccc;
@@ -159,4 +167,39 @@ h1{
 }
 .award-result li{
     margin:5px 0;
+}
+.button{
+    margin: 0 auto;
+    width: 280px;
+    padding: 15;
+    font-size: 30px;
+    text-align: center;
+    border: solid 1px #ccc;
+    border-radius: 50px;
+    box-shadow: 0 0 5px #ccc;
+    
+}
+.button:hover{
+    background:rgb(215, 223, 170);
+    box-shadow:1px 1px 3px #aaa;
+}
+.button-s{
+    margin: 0 auto;
+    margin-top: 10px;
+    width: 100px;
+    padding: 5px;
+    font-size: 20px;
+    text-align: center;
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 5px #ccc;
+    
+}
+.button-s:hover{
+    background:rgb(215, 223, 170);
+    box-shadow:1px 1px 3px #aaa;
+}
+.send{
+    width: 100px;
+    margin-bottom: 10px;
 }

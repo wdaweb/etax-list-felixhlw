@@ -16,18 +16,22 @@ if (!empty($_POST)) {
     if($pdo->exec($sql)){
         echo "<h1>發票輸入成功</h1>";
         echo "<br>";
-        echo "<a href='../reg_invoice.php'><h1>繼續輸入發票<h1></a>";
+        echo "<a href='../reg_invoice.php'><div class='button'>繼續輸入發票</div></a>";
+        echo "<h2>或</h2>";
+        echo "<a href='../index.php'><div class='button'>回首頁</div></a>";
     }else{
-        echo "輸入有誤，請重新輸入";
-
-        echo "<a href='re_invoice.php><h1>回發票輸入頁<h1></a>";
-
+        echo "<h1>輸入有誤，請重新輸入</h1>";
+        echo "<br>";
+        echo "<a href='reg_invoice.php><div class='button'>回發票輸入頁</div></a>";
+        echo "<h2>或</h2>";
+        echo "<a href='../index.php'><div class='button'>回首頁</div></a>";
     }
     
 }
-echo "<h1><a href='../reg_invoice.php'><h1>繼續輸入發票<h1></a></h1>";
-
-echo "<a href='re_invoice.php><h1>回發票輸入頁<h1></a>";
+echo "<a href='../reg_invoice.php'><div class='button'>繼續輸入發票</div></a>";
+echo "<h2>或</h2>";
+echo "<a href='../index.php'><div class='button'>回首頁</div></a>";
+echo "<a href='reg_invoice.php><h1>回發票輸入頁</h1></a>";
 
 
 ?>

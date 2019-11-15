@@ -3,7 +3,7 @@
 $dsn="mysql:host=localhost;charset=utf8;dbname=etax";
 $pdo=new PDO($dsn,"root","");
 
-
+/* 
 登錄發票: 一個表 
 id  編號
 year 年分
@@ -19,7 +19,7 @@ period
 awa1
 awa2
 awa3[]
-awa4[]
+awa4[] */
 
 
 

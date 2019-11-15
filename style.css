@@ -22,8 +22,8 @@
 
 }
 .types:hover{
-    border:2px solid blue;
-    background:lightcyan;
+    border:2px solid rgb(255, 136, 0);
+    background:rgb(255, 232, 128);
 }
 .header{
     margin:10px auto;
