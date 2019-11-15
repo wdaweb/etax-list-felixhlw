@@ -11,20 +11,15 @@
 <body>
     <?php
         include "./api/base.php";
-        echo "<br><br>";
+/*         echo "<br><br>"; */
         $month=date('m');
-      
-
         if (!empty($_GET)) {
-        
             $period=$_GET['period'];
-        
             if (($period > 1 & $month < 3 )) {
                 $year=date('Y')-1;
             }else{
                 $year=date('Y');
             }
-               
         }else{
             $year=date('Y'); 
             $month=date('m');
@@ -48,16 +43,15 @@
         }
 
         $m=["0,0","1,2","3,4","5,6","7,8","9,10","11,12"];
-        $s="";
+        $start=""; //判斷發票開獎日
         if ($period==6) {
-            $s="1";
+            $start="1";
         }else{
-            $s=intval($m[$period])+2;
+            $start=intval($m[$period])+2;
         }
-        echo $s."<br>";
-
-        echo $year."年度,第".$period."期";
-        echo "<br>";
+/*         echo $start."<br>"; */
+/*         echo $year."年度,第".$period."期";
+        echo "<br>"; */
 
         $sql1="select year,period,months,awa1,awa2,awa3,awa4 from award, period where year = '$year' && period='$period' && award.period=period.id && period.id='$period'";
         $award=$pdo->query($sql1)->fetch();
@@ -65,23 +59,22 @@
         $sql2="select year,period,months,code,number,expend from invoice, period where year = '$year' && invoice.period=period.id && period.id='$period'";
         $invoice=$pdo->query($sql2)->fetchAll();
         
-        echo "<br>獎號<br>";
+/*         echo "獎號<br>";
         print_r($award);
-        echo "<br>";
+        echo "<br>"; */
         $months=$invoice[0][2];
         $awa1=$award['awa1'];
         $awa2=$award['awa2'];
         $awa3=explode("," ,$award['awa3']);
         $awa4=explode("," ,$award['awa4']);
-        echo "<br>";
+/*         echo "<br>";
         echo "這是頭獎的獎號內容: <br>";
         print_r($awa3);
-        echo "<br>";
+        echo "<br>"; */
 
-
-        echo "<br>發票號碼<br>";
+/*         echo "<br>發票號碼<br>";
         print_r($invoice);
-        echo "<br><br>";
+        echo "<br><br>"; */
         $awa=[$awa1,$awa2,$awa3,$awa4];
         $num="";
         function nonum($num){
@@ -89,10 +82,10 @@
             global $awa;
             global $period;
             global $m;
-            global $s;
+            global $start;
             
             if (empty($award) ) {
-                echo $s."月25日13:30開獎";
+                echo $start."月25日13:30開獎";
             }else{   
                 echo $awa[$num];
             }
@@ -122,7 +115,7 @@
             <a href="index.php">回首頁</a>
         </li>
     </div>
-
+    <h1><?=$year;?>年度,第<?=$period;?>期</h1>
     <h1>統一發票中獎號碼單</h1>
         <form action="award.php" method="get">
             <input type="hidden" name="year" value="<?=$year;?>">
@@ -166,7 +159,7 @@
                     <td>
                      <?php
                         if (empty($award) || $awa3==0) {
-                            echo "<li>". $s."月25日13:30開獎"."</li>";
+                            echo "<li>". $start."月25日13:30開獎"."</li>";
                               
                         }else{ 
                             for ($i=0; $i < count($awa3); $i++) { 
@@ -207,7 +200,7 @@
                     <td>
                     <?php
                         if (empty($award) || $awa3==0) {
-                            echo "<li>". substr($s,0,1)."月25日13:30開獎"."</li>";      
+                            echo "<li>". $start."月25日13:30開獎"."</li>";
                         }else{ 
                             for ($i=0; $i < count($awa4); $i++) { 
                                 echo "<li>".$awa4[$i]."</li>";

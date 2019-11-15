@@ -74,9 +74,20 @@ echo "<br>";
 echo "<br>";
 $money=[];
 $tot=0;
+function explodeawa3($a){
+    global $award;
+    $result=explode(",", $award[0]['awa3'])[$a];
+    return $result;
+}
+function explodeawa4($b){
+    global $award;
+    $result=explode(",", $award[0]['awa4'])[$b];
+    return $result;
+}
 foreach ($invoice as $key) {
-    echo $key[4];
-    if ($key[4]==$award[0]['awa1']) {
+    echo "key4: ".$key[4];
+    echo "<br>";
+/*     if ($key[4]==$award[0]['awa1']) {
         echo "發票號碼: ".$key[4]." 中特獎 -> 1千萬元";
         echo "<br>";  
         array_push($money,10000000);  
@@ -95,13 +106,68 @@ foreach ($invoice as $key) {
         echo "發票號碼: ".$key[4]."中頭獎 -> 200元";
         echo "<br>";
         array_push($money,200);  
-    }
+    } */
 
+    switch($key[4]){
+        case $award[0]['awa1']:
+            echo "發票號碼: ".$key[4]." 中特別獎 -> 1千萬元";
+            echo "<br>";  
+            array_push($money,10000000);    
+        break;  
+        case $award[0]['awa2']:
+            echo "發票號碼: ".$key[4]." 中特獎 -> 2百萬元";
+            echo "<br>";  
+            array_push($money,2000000); 
+        break;
+/*         case explode(",", $award[0]['awa3'])[0] :
+            echo "發票號碼: ".$key[4]."中頭獎 -> 200萬元";
+            echo "<br>";
+            array_push($money,200000);  
+        break; */
+    }
+    for ($i=0; $i < (count(explode(",", $award[0]['awa3'])))-1 ; $i++) { 
+        if ($key[4]==explodeawa3($i)) {
+            echo "發票號碼: ".$key[4]." 中頭獎 -> 20萬元";
+            echo "<br>";
+            array_push($money,200000); 
+            
+        }elseif( substr($key[4],-7) == substr(explodeawa3($i),-7)){
+            echo "發票號碼: ".$key[4]." 中二獎 -> 4萬元";
+            echo "<br>";
+            array_push($money,40000);  
+        }elseif( substr($key[4],-6) == substr(explodeawa3($i),-6)){
+            echo "發票號碼: ".$key[4]." 中三獎 -> 1萬元";
+            echo "<br>";
+            array_push($money,10000);  
+        }elseif( substr($key[4],-5) == substr(explodeawa3($i),-5)){
+            echo "發票號碼: ".$key[4]." 中四獎 -> 4千元";
+            echo "<br>";
+            array_push($money,4000);     
+        }elseif( substr($key[4],-4) == substr(explodeawa3($i),-4)){
+            echo "發票號碼: ".$key[4]." 中五獎 -> 1千元";
+            echo "<br>";
+            array_push($money,1000);      
+        }elseif( substr($key[4],-3) == substr(explodeawa3($i),-3)){
+            echo "發票號碼: ".$key[4]." 中六獎 -> 200元";
+            echo "<br>";
+            array_push($money,200);    
+        }
+    }
+    for ($i=0; $i < (count(explode(",", $award[0]['awa4'])))-1 ; $i++) { 
+        if( substr($key[4],-3) == explodeawa4($i)){
+            echo "發票號碼: ".$key[4]." 中加開六獎 -> 200元";
+            echo "<br>";
+            array_push($money,200);    
+        }
+    }
 
 }
 $tot=array_sum($money);
-echo "<br>獲獎陣列紀錄: ";
+echo "<br>獲獎陣列紀錄: <br>";
 print_r($money);
+echo "<br><br>";
+echo "總共中了".count($money)."張發票";
+echo "<br>";
 echo "<br>總共獲得:".$tot."元<br>";
 
 
